@@ -52,7 +52,7 @@
 						<img src="img/outros/map.png" alt=""/>
 						<figcaption>
 							<h2>Fácil de achar</h2>
-							<p>Estamos localizados no lugar mais conhecido da cidade de Ijuí! Se você quiser fazer uma visitinha, conhecer a empresa e ainda tomar um cafézinho, sabe onde nos econtrar!</p>
+							<p>Estamos localizados no lugar mais conhecido da cidade de Ijuí! Se você quiser fazer uma visitinha, conhecer a empresa e ainda tomar um cafézinho, sabe onde nos econtrar! Cuidado com o Corona Vírus!</p>
 						</figcaption>
 					</figure>
 				</li>
