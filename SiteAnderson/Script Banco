@@ -1,0 +1,287 @@
+DROP DATABASE IF EXISTS db_univalle;
+
+CREATE DATABASE db_univalle;
+
+USE db_univalle;
+
+CREATE TABLE estado(
+id INT AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+sigla_uf CHAR(2) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE cidade(
+id INT AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE pessoa(
+id INT AUTO_INCREMENT,
+nome VARCHAR(75) NOT NULL,
+sobrenome VARCHAR(75) NOT NULL,
+cpf CHAR(14) NOT NULL,
+email VARCHAR(30) NULL,
+endereco VARCHAR(100) NOT NULL,
+estado INT NOT NULL,
+cidade INT NOT NULL,
+cep CHAR(8),
+usuario  VARCHAR(75) NOT NULL UNIQUE,	
+senha    VARCHAR(75) NOT NULL ,
+PRIMARY KEY (id),
+FOREIGN KEY (estado)
+REFERENCES estado(id)
+	ON DELETE NO ACTION
+	ON UPDATE CASCADE,
+FOREIGN KEY (cidade)
+REFERENCES cidade(id)
+	ON DELETE NO ACTION
+	ON UPDATE CASCADE	
+);
+
+CREATE TABLE produto(
+id INT AUTO_INCREMENT,
+descricao VARCHAR(50) NOT NULL,
+preco DECIMAL(6,2) UNSIGNED NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE pedido(
+id INT AUTO_INCREMENT,
+data_pedido DATE NULL,
+id_pessoa INT NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(id_pessoa)
+REFERENCES pessoa(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE item_pedido(
+qtd INT UNSIGNED NOT NULL,
+preco_produto DECIMAL(6,2) UNSIGNED NOT NULL,
+id_produto INT NOT NULL,
+id_pedido INT NOT NULL,
+FOREIGN KEY(id_produto)
+REFERENCES produto(id)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+FOREIGN KEY(id_pedido)
+REFERENCES pedido(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+
+/*------------------------------------------------INSERÇÕES------------------------------------------------------*/
+
+INSERT INTO produto VALUES
+(default, 'Brahma Lata 350ml', 3.49),
+(default, 'Skol Lata 350ml', 3.39),
+(default, 'Polar Lata 350ml', 3.29),
+(default, 'Pepsi Lata 350ml', 2.99),
+(default, 'Brahma Litro 1000ml', 6.99),
+(default, 'Polar Garrafa 600ml', 4.99),
+(default, 'Coca-Cola 2litros', 5.99),
+(default, 'Pepsi 2litros', 5.69),
+(default, 'Pepsi Light 2litros', 5.89),
+(default, 'Coca-Cola Lata 350ml', 3.19),
+(default, 'Skol Beats Secret 313ml', 4.19),
+(default, 'Skol Beats Secret Lata 269ml', 3.99),
+(default, 'Polar Litro 1000ml', 5.99),
+(default, 'Skol Litro 1000ml', 6.89),
+(default, 'Skol Puro Malte 600ml', 5.59);
+
+INSERT INTO estado VALUES
+(default, 'Acre', 'AC'),
+(default, 'Alagoas', 'AL'),
+(default, 'Amazonas', 'AM'),
+(default, 'Amapá', 'AP'),
+(default, 'Bahia', 'BA'),
+(default, 'Ceará', 'CE'),
+(default, 'Distrito Federal', 'DF'),
+(default, 'Espírito Santo', 'ES'),
+(default, 'Goiânia', 'GO'),
+(default, 'Maranhão', 'MA'),
+(default, 'Minhas Gerais', 'MG'),
+(default, 'Mato Grosso do Sul', 'MS'),
+(default, 'Mato Grosso', 'MT'),
+(default, 'Pará', 'PA'),
+(default, 'Paraíba', 'PB'),
+(default, 'Pernambuco', 'PE'),
+(default, 'Piauí', 'PI'),
+(default, 'Paraná', 'PR'),
+(default, 'Rio de Janeiro', 'RJ'),
+(default, 'Rio Grande do Norte', 'RN'),
+(default, 'Rondônia', 'RO'),
+(default, 'Roraima', 'RR'),
+(default, 'Rio Grande do Sul', 'RS'),
+(default, 'Santa Catarina', 'SC'),
+(default, 'Sergipe', 'SE'),
+(default, 'São Paulo', 'SP'),
+(default, 'Tocantins', 'TO');
+
+INSERT INTO cidade VALUES
+(default, 'Aceguá'),
+(default, 'Água Santa'),
+(default, 'Agudo'),
+(default, 'Ajuricaba'),
+(default, 'Alecrim'),
+(default, 'Alegrete'),
+(default, 'Alegria'),
+(default, 'Almirante Tamandaré do Sul'),
+(default, 'Alpestre'),
+(default, 'Alto Alegre'),
+(default, 'Alto Feliz'),
+(default, 'Alvorada'),
+(default, 'Amaral Ferrador'),
+(default, 'Ametista do Sul'),
+(default, 'André da Rocha'),
+(default, 'Anta Gorda'),
+(default, 'Antônio Prado'),
+(default, 'Arambaré'),
+(default, 'Araricá'),
+(default, 'Aratiba'),
+(default, 'Arroio do Meio'),
+(default, 'Arroio do Padre'),
+(default, 'Arroio do Sal'),
+(default, 'Arroio do Tigre'),
+(default, 'Arroio dos Ratos'),
+(default, 'Arroio Grande'),
+(default, 'Arvorezinha'),
+(default, 'Pinto Bandeira'),
+(default, 'Augusto Pestana'),
+(default, 'Áurea'),
+(default, 'Bagé'),
+(default, 'Balneário Pinhal'),
+(default, 'Barão'),
+(default, 'Barão de Cotegipe'),
+(default, 'Barão do Triunfo'),
+(default, 'Barra do Guarita'),
+(default, 'Barra do Quaraí'),
+(default, 'Barra do Ribeiro'),
+(default, 'Humaitá'),
+(default, 'Ibarama'),
+(default, 'Ibiaçá'),
+(default, 'Ibiraiaras'),
+(default, 'Ibirapuitã'),
+(default, 'Ibirubá'),
+(default, 'Igrejinha'),
+(default, 'Ijuí'),
+(default, 'Nova Boa Vista'),
+(default, 'Nova Bréscia'),
+(default, 'Nova Candelária'),
+(default, 'Nova Esperança do Sul'),
+(default, 'Nova Hartz'),
+(default, 'Nova Pádua'),
+(default, 'Nova Palma'),
+(default, 'Nova Petrópolis'),
+(default, 'Nova Prata'),
+(default, 'Nova Ramada'),
+(default, 'Nova Roma do Sul'),
+(default, 'Nova Santa Rita'),
+(default, 'Santa Bárbara do Sul'),
+(default, 'Santa Cecília do Sul'),
+(default, 'Santa Clara do Sul'),
+(default, 'Santa Cruz do Sul'),
+(default, 'Santa Margarida do Sul'),
+(default, 'Santa Maria'),
+(default, 'Santa Maria do Herval'),
+(default, 'Santa Rosa'),
+(default, 'Santa Tereza'),
+(default, 'Santa Vitória do Palmar'),
+(default, 'Santana da Boa Vista'),
+(default, 'Santana do Livramento'),
+(default, 'Santiago'),
+(default, 'Santo Ângelo'),
+(default, 'Santo Antônio da Patrulha'),
+(default, 'Santo Antônio das Missões'),
+(default, 'Santo Antônio do Palma'),
+(default, 'Santo Antônio do Planalto'),
+(default, 'Santo Augusto'),
+(default, 'Santo Cristo'),
+(default, 'Santo Expedito do Sul'),
+(default, 'São Borja'),
+(default, 'São Domingos do Sul'),
+(default, 'São Francisco de Assis'),
+(default, 'São Francisco de Paula'),
+(default, 'São Gabriel'),
+(default, 'São Jerônimo'),
+(default, 'São João da Urtiga'),
+(default, 'São João do Polêsine'),
+(default, 'São Jorge'),
+(default, 'São José das Missões'),
+(default, 'São José do Herval'),
+(default, 'São José do Hortêncio'),
+(default, 'São José do Inhacorá'),
+(default, 'São José do Norte'),
+(default, 'São José do Ouro'),
+(default, 'São José do Sul'),
+(default, 'São José dos Ausentes'),
+(default, 'São Leopoldo'),
+(default, 'São Lourenço do Sul'),
+(default, 'São Luiz Gonzaga'),
+(default, 'São Marcos'),
+(default, 'São Martinho'),
+(default, 'São Martinho da Serra'),
+(default, 'São Miguel das Missões'),
+(default, 'São Nicolau'),
+(default, 'São Paulo das Missões'),
+(default, 'São Pedro da Serra'),
+(default, 'São Pedro das Missões'),
+(default, 'São Pedro do Butiá'),
+(default, 'São Pedro do Sul'),
+(default, 'São Sebastião do Caí'),
+(default, 'São Sepé'),
+(default, 'São Valentim'),
+(default, 'São Valentim do Sul'),
+(default, 'São Valério do Sul'),
+(default, 'São Vendelino'),
+(default, 'São Vicente do Sul'),
+(default, 'Sapiranga'),
+(default, 'Sapucaia do Sul'),
+(default, 'Sarandi'),
+(default, 'Seberi'),
+(default, 'Sede Nova'),
+(default, 'Segredo'),
+(default, 'Selbach'),
+(default, 'Senador Salgado Filho'),
+(default, 'Sentinela do Sul'),
+(default, 'Serafina Corrêa'),
+(default, 'Sério'),
+(default, 'Sertão'),
+(default, 'Sertão Santana'),
+(default, 'Sete de Setembro'),
+(default, 'Severiano de Almeida'),
+(default, 'Silveira Martins'),
+(default, 'Sinimbu'),
+(default, 'Sobradinho'),
+(default, 'Soledade'),
+(default, 'Xangri-lá');
+
+INSERT INTO pessoa VALUES
+(default,'João', 'Silva', '03154612900', 'joao@hotmail.com', 'Rua Santo Espedito', 23, 10, '9870000','joao','202cb962ac59075b964b07152d234b70'),
+(default,'Maria', 'Silva', '03154612910', 'maria@hotmail.com', 'Rua 7 de Setembro', 23, 20, '9870000','maria','202cb962ac59075b964b07152d234b70'),
+(default,'José', 'Santos', '03154612988', 'jose@hotmail.com', 'Rua Benjamin', 23, 28, '9870000','jose','202cb962ac59075b964b07152d234b70'),
+(default,'Lílian', 'Barrichelo', '031546129022', 'lilian@hotmail.com', 'Rua Cassiano', 23, 9, '9870000','lilian','202cb962ac59075b964b07152d234b70');
+
+INSERT INTO pedido VALUES
+(default, '2018-05-12', 1),
+(default, '2017-01-13', 2),
+(default, '2019-01-30', 3),
+(default, '2019-06-12', 4);
+
+INSERT INTO item_pedido VALUES
+(3, 3.49, 1, 1),
+(4, 3.39, 2, 1),
+(5, 5.59, 15, 1),
+(1, 3.49, 1, 2),
+(10, 3.39, 2, 2),
+(3, 5.59, 15, 2),
+(11, 3.49, 1, 3),
+(2, 3.39, 2, 3),
+(1, 5.59, 15, 3),
+(9, 3.49, 1, 4),
+(8, 3.39, 2, 4),
+(7, 5.59, 15, 4);
